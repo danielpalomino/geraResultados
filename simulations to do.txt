@@ -1,0 +1,23 @@
+1) RDO X (SAD, SATD, SSD)-based decision
+	-com videos HD
+	-salvar PSNR(db), bit rate
+	-resultados para cada vídeo
+	-considerar apenas quadros I
+	-considerar apenas blocos 4x4
+
+2) idem 1, mas com blocos 16x16
+
+3) RDO x DCT-based mode decision com vídeos HD
+	-salvar PSNR e bit rate para cada vídeo
+	-vídeo codificado com RDO e com decisão baseado na DCT 16x16
+	-melhor 4x4 e melhor 16x16 com RDO
+	-Apenas quadros I
+	-os dois tamanhos de bloco (4x4 16x16)
+
+4) IDEM ao 3
+	-com decisão de tam. de bloco usando DCT 16x16
+	-com decisão de melhor modo 4x4 e 16x16 baseada em SAD
+
+5) %tagem de modos em quadros P para vídeos HD
+	-para cada vídeo
+	-decisão com RDO
