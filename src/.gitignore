@@ -5,6 +5,7 @@ coder$py.class
 dctTransform.pyc
 dctTransform$py.class
 fileModes.pyc
+fileModesSADheuristic.pyc
 fileModes$py.class
 geraResultados.pyc
 resultadosBitRatePSNR.pyc
