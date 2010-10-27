@@ -115,7 +115,7 @@ class CfgFile:
 	#metodo manda os arquivos gerados pela codificacao para uma outra pasta
 	def setPathFiles(self):
 		for i in range(0, len(self.buff)):
-			if self.buff[i].find('TraceFile') != -1 or self.buff[i].find('ReconFile') != -1 or self.buff[i].find('OutputFile') != -1 or self.buff[i].find('StatsFile') != -1 or self.buff[i].find('LeakyBucketParamFile') != -1:
+			if self.buff[i].find('TraceFile') != -1 or self.buff[i].find('ReconFile') != -1 or self.buff[i].find('OutputFile') != -1 or self.buff[i].find('StatsFile') != -1 or self.buff[i].find('LeakyBucketParamFile') != -1 or self.buff[i].find('LeakyBucketRateFile') != -1:
 				lstword = self.buff[i].split()
 				lstword[2] = lstword[2][:1] + '../filesCodification/' + lstword[2][1:]
 				temp = ''
@@ -146,6 +146,17 @@ class CfgFile:
 				temp = temp + '\n'
 				self.buff[i] = temp
 
+	def enableIPCM(self):
+		for i in range(0, len(self.buff)):
+			if self.buff[i].find('EnableIPCM') != -1:
+				lstword = self.buff[i].split()
+				lstword[2] = str(1)
+				temp = ''
+				for elem in lstword:
+					temp = temp + elem + ' '
+				temp = temp + '\n'
+				self.buff[i] = temp
+
 	def disableI16MB(self):
 		for i in range(0, len(self.buff)):
 			if self.buff[i].find('DisableIntra16x16') != -1:
@@ -168,6 +179,17 @@ class CfgFile:
 				temp = temp + '\n'
 				self.buff[i] = temp
 
+	def disableIPCM(self):
+		for i in range(0, len(self.buff)):
+			if self.buff[i].find('EnableIPCM') != -1:
+				lstword = self.buff[i].split()
+				lstword[2] = str(0)
+				temp = ''
+				for elem in lstword:
+					temp = temp + elem + ' '
+				temp = temp + '\n'
+				self.buff[i] = temp
+
 	def setRDOoff(self):
 		for i in range(0, len(self.buff)):
 			if self.buff[i].find('RDOptimization') != -1 and self.buff[i].find('rd-optimized') != -1:
@@ -182,6 +204,17 @@ class CfgFile:
 	def setRDOon(self):
 		for i in range(0, len(self.buff)):
 			if self.buff[i].find('RDOptimization') != -1 and self.buff[i].find('rd-optimized') != -1:
+				lstword = self.buff[i].split()
+				lstword[2] = str(1)
+				temp = ''
+				for elem in lstword:
+					temp = temp + elem + ' '
+				temp = temp + '\n'
+				self.buff[i] = temp
+
+	def setI16RDOon(self):
+		for i in range(0, len(self.buff)):
+			if self.buff[i].find('I16RDOpt') != -1 :
 				lstword = self.buff[i].split()
 				lstword[2] = str(1)
 				temp = ''
