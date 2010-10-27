@@ -33,10 +33,10 @@ VideoList = ['ICE_352x288_30_orig_02.yuv']
 #'RUSHHOUR_1920x1080_25_orig_01.yuv']
 #video = 'TRACTOR_1920x1080_25_orig_01.yuv'
 #VideoList = ['FOREMAN_352x288_30_orig_01.yuv', 'BUS_352x288_30_orig_01.yuv', 'CITY_352x288_30_orig_01.yuv', 'FOOTBALL_352x288_30_orig_01.yuv', 'HARBOUR_352x288_30_orig_01.yuv', 'ICE_352x288_30_orig_02.yuv', 'SOCCER_352x288_30_orig_02.yuv', 'SOCCER_704x576_30_orig_02.yuv']
-#ListTH = []
-#ListTH.extend(range(0, 5000, 100))
-ListTH = [10,50]
-NUM_FRAMES = 3
+ListTH = []
+ListTH.extend(range(0, 1000, 10))
+#ListTH = [10,50]
+NUM_FRAMES = 10
 ENABLE_I4MB = 1
 ENABLE_I16MB = 1
 ENABLE_IPCM = 1
