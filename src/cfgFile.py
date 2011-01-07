@@ -225,7 +225,7 @@ class CfgFile:
 
 	def setSADdistortion(self):
 		for i in range(0, len(self.buff)):
-			if self.buff[i].find('MEDistortionHPel') != -1 or self.buff[i].find('MEDistortionQPel') != -1 or self.buff[i].find('MDDistortion') != -1:
+			if self.buff[i].find('MEDistortionFPel') != -1 or self.buff[i].find('MEDistortionHPel') != -1 or self.buff[i].find('MEDistortionQPel') != -1 or self.buff[i].find('MDDistortion') != -1:
 				lstword = self.buff[i].split()
 				lstword[2] = str(0)
 				temp = ''
@@ -236,7 +236,7 @@ class CfgFile:
 
 	def setSSEdistortion(self):
 		for i in range(0, len(self.buff)):
-			if self.buff[i].find('MEDistortionHPel') != -1 or self.buff[i].find('MEDistortionQPel') != -1 or self.buff[i].find('MDDistortion') != -1:
+			if self.buff[i].find('MEDistortionFPel') != -1 or self.buff[i].find('MEDistortionHPel') != -1 or self.buff[i].find('MEDistortionQPel') != -1 or self.buff[i].find('MDDistortion') != -1:
 				lstword = self.buff[i].split()
 				lstword[2] = str(1)
 				temp = ''
@@ -247,7 +247,7 @@ class CfgFile:
 
 	def setSATDdistortion(self):
 		for i in range(0, len(self.buff)):
-			if self.buff[i].find('MEDistortionHPel') != -1 or self.buff[i].find('MEDistortionQPel') != -1 or self.buff[i].find('MDDistortion') != -1:
+			if self.buff[i].find('MEDistortionFPel') != -1 or self.buff[i].find('MEDistortionHPel') != -1 or self.buff[i].find('MEDistortionQPel') != -1 or self.buff[i].find('MDDistortion') != -1:
 				lstword = self.buff[i].split()
 				lstword[2] = str(2)
 				temp = ''

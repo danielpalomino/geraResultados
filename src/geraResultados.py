@@ -21,7 +21,7 @@ cfgRef = '/home/daniel/NetBeansProjects/jm-normal/bin/encoder_baseline.cfg'
 coderNormal = '/home/daniel/NetBeansProjects/jm-normal/bin/lencod.exe'
 coderHeuristic = '/home/daniel/NetBeansProjects/jm-heuristic/bin/lencod.exe'
 resultsFile = '../Resultados/results.csv'
-VideoList = ['ICE_352x288_30_orig_02.yuv']
+VideoList = ['STATION2_1920x1080_25_orig_01.yuv']
 #VideoList = ['STATION2_1920x1080_25_orig_01.yuv',
 #'SUNFLOWER_1920x1080_25_orig_01.yuv',
 #'TRACTOR_1920x1080_25_orig_01.yuv',
@@ -32,11 +32,11 @@ VideoList = ['ICE_352x288_30_orig_02.yuv']
 #'ROLLINGTOMATOES_1920x1080_25_orig_01.yuv',
 #'RUSHHOUR_1920x1080_25_orig_01.yuv']
 #video = 'TRACTOR_1920x1080_25_orig_01.yuv'
-#VideoList = ['FOREMAN_352x288_30_orig_01.yuv', 'BUS_352x288_30_orig_01.yuv', 'CITY_352x288_30_orig_01.yuv', 'FOOTBALL_352x288_30_orig_01.yuv', 'HARBOUR_352x288_30_orig_01.yuv', 'ICE_352x288_30_orig_02.yuv', 'SOCCER_352x288_30_orig_02.yuv', 'SOCCER_704x576_30_orig_02.yuv']
+#VideoList = ['FOREMAN_352x288_30_orig_01.yuv', 'BUS_352x288_30_orig_01.yuv', 'CITY_352x288_30_orig_01.yuv', 'FOOTBALL_352x288_30_orig_01.yuv', 'HARBOUR_352x288_30_orig_01.yuv', 'ICE_352x288_30_orig_02.yuv', 'SOCCER_352x288_30_orig_02.yuv']
 ListTH = []
-ListTH.extend(range(0, 1000, 10))
-#ListTH = [10,50]
-NUM_FRAMES = 10
+#ListTH.extend(range(0, 6000, 10))
+#ListTH = [3000,3440]
+NUM_FRAMES = 100
 ENABLE_I4MB = 1
 ENABLE_I16MB = 1
 ENABLE_IPCM = 1
@@ -47,9 +47,9 @@ QP = 28
 SAD = 0
 SSE = 1
 SATD = 2
-MDDistortion = SAD
-DISABLEINTRAININTER = 0
-INTRAPERIOD = 1
+MDDistortion = SSE
+DISABLEINTRAININTER = 1
+INTRAPERIOD = 4
 NUMBEROFREFERENCEFRAMES = 4
 
 def setCfgFile(cfgFile):
@@ -115,10 +115,6 @@ def runDCT():
     transform = DCTTransform(dct)
     transform.run('../filesCoderNormal/originalBlocks.txt', outDCTFile)
 
-def geraOurModes(TH):
-    modes = FileModes(TH, outDCTFile)
-    modes.geraFile()
-
 def geraOurModesSAD(TH):
     modes = FileModesSADheuristic(TH, pathResidualI4MB, pathResidualI16MB)
     modes.geraFile()
@@ -167,30 +163,35 @@ def claudioSimulation():
 
     resultados.createFile()
 
+#########################################################
 def main():
     cfgList = geraCfgs(VideoList)
-    resultados = ResultadosBitRatePSNR(resultsFile)
+    fpResultados = open(resultsFile, 'w')
     for cfg in cfgList:
-	resultados.writeLine(cfg.getVideoName() + '\n')
-	runCoderNormal(cfg.getFileName())
+        fpResultados.write(cfg.getVideoName() + '\n')
+        runCoderNormal(cfg.getFileName())
+        
+        buff1 = getNormalFileResults()
+        for line in buff1:
+            fpResultados.write('Normal,' + line)
 
-	buff1 = getNormalFileResults()
+#        runDCT()
+#        modes = FileModes(outDCTFile)
+#        print 'Gerando Homogeneity Metric File ...'
+#        modes.geraHomogeneityMetricFile()
 
-	for line in buff1:
-	    resultados.writeLine('Normal,' + line)
+        for TH in ListTH:
+            print 'Rodando para o Threshold ' + str(TH)
+            fpResultados.write(str(TH) + ',')
+            modes.geraOurModes(TH)
+            runCoderHeuristic(cfg.getFileName())
+            buff = getHeuristicFileResults()
+            for line in buff:
+                fpResultados.write(line)
 
-#	    runDCT()
-#	    for TH in ListTH:
-#		    print 'Rodando para o Threshold ' + str(TH)
-#		    resultados.writeLine(str(TH) + ',')
-#		    geraOurModes(TH)
-#		    runCo#derHeuristic(cfg.getFileName())
-#		    buff = getHeuristicFileResults()
-#		    for line in buff:
-#			    resultados.writeLine(line)
+    fpResultados.close()
 
-    resultados.createFile()
-    
+###############################################################
 def heuristicSAD():
     cfgList = geraCfgs(VideoList)
     resultados = ResultadosBitRatePSNR(resultsFile)
@@ -224,6 +225,6 @@ def heuristicSAD():
     
 if __name__ == "__main__":
 #    resultsIntra()
-#    main()
+    main()
 #    claudioSimulation()
-    heuristicSAD()
+#    heuristicSAD()
